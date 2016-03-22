@@ -19,6 +19,16 @@
             <artifactId>javaparser-core</artifactId>
             <version>2.2.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.codepoetics</groupId>
+            <artifactId>ambivalence</artifactId>
+            <version>0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.toddfast.preconditions</groupId>
+            <artifactId>preconditions</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>

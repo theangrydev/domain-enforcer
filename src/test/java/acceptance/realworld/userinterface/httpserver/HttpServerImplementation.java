@@ -1,6 +1,4 @@
-package acceptance.realworld.infrastructure.httpserver;
-
-import acceptance.realworld.domain.httpserver.HttpServer;
+package acceptance.realworld.userinterface.httpserver;
 
 public class HttpServerImplementation implements HttpServer {
     @Override

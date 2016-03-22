@@ -33,8 +33,8 @@ public class RealWorldTest implements WithAssertions {
     }
 
     @Test
-    public void infrastructureShouldOnlyTalkToItselfAndDomainAndJava() {
-        List<String> violations = domainEnforcer.checkThatPackageOnlyTalksToItself("acceptance.realworld.infrastructure").apartFrom("acceptance.realworld.domain", "java");
+    public void infrastructureShouldOnlyTalkToItselfAndApplicationAndDomainAndJava() {
+        List<String> violations = domainEnforcer.checkThatPackageOnlyTalksToItself("acceptance.realworld.infrastructure").apartFrom("acceptance.realworld.application", "acceptance.realworld.domain", "java");
 
         assertThat(violations).describedAs("Violations").isEmpty();
     }

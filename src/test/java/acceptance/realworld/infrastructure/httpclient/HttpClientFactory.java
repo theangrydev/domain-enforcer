@@ -1,4 +1,4 @@
-package acceptance.realworld.domain.httpclient;
+package acceptance.realworld.infrastructure.httpclient;
 
 public interface HttpClientFactory {
     HttpClient httpClient();

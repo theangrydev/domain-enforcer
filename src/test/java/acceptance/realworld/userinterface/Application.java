@@ -1,7 +1,7 @@
 package acceptance.realworld.userinterface;
 
 import acceptance.realworld.application.ApplicationService;
-import acceptance.realworld.domain.httpserver.HttpServer;
+import acceptance.realworld.userinterface.httpserver.HttpServer;
 import acceptance.realworld.wiring.Wiring;
 
 public class Application {
@@ -13,8 +13,7 @@ public class Application {
     }
 
     public void start() {
-        ApplicationService applicationService = new ApplicationService(wiring.httpClientFactory(), wiring.repository());
-
+        ApplicationService applicationService = new ApplicationService(wiring.portingAuthorizationService(), wiring.repository());
         ExampleHttpServlet exampleHttpServlet = new ExampleHttpServlet(applicationService);
 
         HttpServer httpServer = wiring.httpServerBuilder().withServlet(exampleHttpServlet).build();

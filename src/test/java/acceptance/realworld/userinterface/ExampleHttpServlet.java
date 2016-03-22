@@ -1,6 +1,8 @@
 package acceptance.realworld.userinterface;
 
 import acceptance.realworld.application.ApplicationService;
+import acceptance.realworld.domain.MSISDN;
+import acceptance.realworld.domain.pac.PortingAuthorizationResult;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +21,11 @@ public class ExampleHttpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        applicationService.doSomething();
+        String misdn = request.getParameter("MISDN");
+        PortingAuthorizationResult result = applicationService.requestPortingAuthorizationCode(new MSISDN(misdn));
+
         PrintWriter writer = response.getWriter();
-        writer.print("Hello World!");
+        result.errorCode().ifPresent(errorCode -> writer.print("Error: " + errorCode));
+        result.portingAuthorizationCode().ifPresent(pacCode -> writer.print("Code: " + pacCode));
     }
 }

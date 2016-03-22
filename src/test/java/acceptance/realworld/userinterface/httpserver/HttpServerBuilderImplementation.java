@@ -1,7 +1,4 @@
-package acceptance.realworld.infrastructure.httpserver;
-
-import acceptance.realworld.domain.httpserver.HttpServer;
-import acceptance.realworld.domain.httpserver.HttpServerBuilder;
+package acceptance.realworld.userinterface.httpserver;
 
 import javax.servlet.http.HttpServlet;
 

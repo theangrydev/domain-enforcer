@@ -1,4 +1,4 @@
-package acceptance.realworld.domain.httpserver;
+package acceptance.realworld.userinterface.httpserver;
 
 import javax.servlet.http.HttpServlet;
 
