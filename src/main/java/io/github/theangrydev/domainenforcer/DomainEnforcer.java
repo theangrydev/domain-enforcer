@@ -67,7 +67,7 @@ public class DomainEnforcer {
         }
 
         private boolean notExcluded(Set<String> excludedPackages, Import entry) {
-            return !excludedPackages.stream().allMatch(exclude -> entry.importEntry().startsWith(exclude));
+            return !excludedPackages.stream().anyMatch(exclude -> entry.importEntry().startsWith(exclude));
         }
     }
 

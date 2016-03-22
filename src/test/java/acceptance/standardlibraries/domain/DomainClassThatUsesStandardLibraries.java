@@ -1,4 +1,4 @@
-package io.github.theangrydev.domainenforcer.examples.b.domain;
+package acceptance.standardlibraries.domain;
 
 import java.util.Collection;
 import java.util.Collections;

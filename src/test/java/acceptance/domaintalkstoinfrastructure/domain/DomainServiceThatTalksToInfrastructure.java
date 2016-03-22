@@ -1,6 +1,6 @@
-package io.github.theangrydev.domainenforcer.examples.a.domain;
+package acceptance.domaintalkstoinfrastructure.domain;
 
-import io.github.theangrydev.domainenforcer.examples.a.infrastructure.RepositoryImplementation;
+import acceptance.domaintalkstoinfrastructure.infrastructure.RepositoryImplementation;
 
 @SuppressWarnings("unused")
 public class DomainServiceThatTalksToInfrastructure {
