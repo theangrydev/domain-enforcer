@@ -2,7 +2,7 @@ package acceptance.realworld.userinterface;
 
 import acceptance.realworld.application.ApplicationService;
 import acceptance.realworld.domain.MSISDN;
-import acceptance.realworld.domain.pac.PortingAuthorizationResult;
+import acceptance.realworld.domain.portingauthorization.PortingAuthorizationResult;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -3,7 +3,7 @@ package acceptance.realworld.wiring;
 import acceptance.realworld.application.PacRequestRepository;
 import acceptance.realworld.infrastructure.httpclient.HttpClientFactory;
 import acceptance.realworld.userinterface.httpserver.HttpServerBuilder;
-import acceptance.realworld.domain.pac.PortingAuthorizationService;
+import acceptance.realworld.domain.portingauthorization.PortingAuthorizationService;
 import acceptance.realworld.infrastructure.httpclient.HttpClientFactoryImplementation;
 import acceptance.realworld.userinterface.httpserver.HttpServerBuilderImplementation;
 import acceptance.realworld.infrastructure.persistence.PretendPacRequestRepository;

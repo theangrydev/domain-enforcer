@@ -2,7 +2,7 @@ package acceptance.realworld.infrastructure.persistence;
 
 import acceptance.realworld.domain.MSISDN;
 import acceptance.realworld.application.PacRequestRepository;
-import acceptance.realworld.domain.pac.PortingAuthorizationResult;
+import acceptance.realworld.domain.portingauthorization.PortingAuthorizationResult;
 
 public class PretendPacRequestRepository implements PacRequestRepository {
 

@@ -1,8 +1,8 @@
 package acceptance.realworld.application;
 
 import acceptance.realworld.domain.MSISDN;
-import acceptance.realworld.domain.pac.PortingAuthorizationResult;
-import acceptance.realworld.domain.pac.PortingAuthorizationService;
+import acceptance.realworld.domain.portingauthorization.PortingAuthorizationResult;
+import acceptance.realworld.domain.portingauthorization.PortingAuthorizationService;
 
 @SuppressWarnings("unused")
 public class ApplicationService {

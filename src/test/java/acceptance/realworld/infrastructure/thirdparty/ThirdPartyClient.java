@@ -4,10 +4,10 @@ import acceptance.realworld.domain.MSISDN;
 import acceptance.realworld.infrastructure.httpclient.HttpClientFactory;
 import acceptance.realworld.infrastructure.httpclient.HttpRequest;
 import acceptance.realworld.infrastructure.httpclient.HttpResponse;
-import acceptance.realworld.domain.pac.FailedPortingAuthorizationResult;
-import acceptance.realworld.domain.pac.PortingAuthorizationResult;
-import acceptance.realworld.domain.pac.PortingAuthorizationService;
-import acceptance.realworld.domain.pac.SuccessfulPortingAuthorizationResult;
+import acceptance.realworld.domain.portingauthorization.FailedPortingAuthorizationResult;
+import acceptance.realworld.domain.portingauthorization.PortingAuthorizationResult;
+import acceptance.realworld.domain.portingauthorization.PortingAuthorizationService;
+import acceptance.realworld.domain.portingauthorization.SuccessfulPortingAuthorizationResult;
 
 public class ThirdPartyClient implements PortingAuthorizationService {
 

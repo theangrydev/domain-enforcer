@@ -1,4 +1,4 @@
-package acceptance.realworld.domain.pac;
+package acceptance.realworld.domain.portingauthorization;
 
 import acceptance.realworld.domain.MSISDN;
 
