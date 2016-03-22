@@ -4,7 +4,6 @@ import org.assertj.core.api.WithAssertions;
 import org.junit.Test;
 
 import java.nio.file.Paths;
-import java.util.List;
 
 public class DomainEnforcerTest implements WithAssertions {
 

@@ -1,6 +1,6 @@
-package acceptance.domaintalkstoinfrastructure.domain;
+package acceptance.baddomaintalkstoinfrastructure.domain;
 
-import acceptance.domaintalkstoinfrastructure.infrastructure.RepositoryImplementation;
+import acceptance.baddomaintalkstoinfrastructure.infrastructure.RepositoryImplementation;
 
 @SuppressWarnings("unused")
 public class DomainServiceThatTalksToInfrastructure {

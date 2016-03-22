@@ -1,9 +1,11 @@
 package io.github.theangrydev.domainenforcer;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static io.github.theangrydev.domainenforcer.Import.anImport;
@@ -38,7 +40,7 @@ public class DomainEnforcer {
     }
 
     public PackageOnlyTalksToItselfCommandBuilder checkThatPackageOnlyTalksToItself(String aPackage) {
-        if (!packageImportsByPackage.containsKey(aPackage)) {
+        if (!packageImportsByPackage.keySet().stream().anyMatch(entry -> entry.startsWith(aPackage))) {
             throw new IllegalArgumentException(format("Package '%s' was not found", aPackage));
         }
         return new PackageOnlyTalksToItselfCommandBuilder(aPackage);
@@ -56,18 +58,19 @@ public class DomainEnforcer {
         }
 
         private List<String> apartFrom(Set<String> excludedPackages) {
-            return packageImportsByPackage.get(aPackage).stream()
-                    .filter(entry -> notExcluded(excludedPackages, entry))
+            return packageImportsByPackage.entrySet().stream()
+                    .filter(entry -> entry.getKey().startsWith(aPackage))
+                    .flatMap(entry -> entry.getValue().stream().filter(packageImport -> notExcluded(aPackage, excludedPackages, packageImport)))
                     .map(anImport -> format("'%s' is only supposed to talk to itself %s but '%s' talks to '%s'!", aPackage, and(excludedPackages), anImport.unitName(), anImport.importEntry()))
                     .collect(toList());
         }
 
         private String and(Set<String> excludedPackages) {
-            return excludedPackages.stream().collect(joining("' and '", "and '", "'"));
+            return excludedPackages.stream().sorted().collect(joining("' and '", "and '", "'"));
         }
 
-        private boolean notExcluded(Set<String> excludedPackages, Import entry) {
-            return !excludedPackages.stream().anyMatch(exclude -> entry.importEntry().startsWith(exclude));
+        private boolean notExcluded(String aPackage, Set<String> excludedPackages, Import entry) {
+            return !Stream.concat(Stream.of(aPackage), excludedPackages.stream()).anyMatch(exclude -> entry.importEntry().startsWith(exclude));
         }
     }
 

@@ -1,6 +1,6 @@
-package acceptance.wiring.infrastructure;
+package acceptance.realworld.infrastructure.persistence;
 
-import acceptance.wiring.domain.Repository;
+import acceptance.realworld.domain.Repository;
 
 public class RepositoryImplementation implements Repository {
 
