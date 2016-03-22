@@ -2,7 +2,6 @@ package io.github.theangrydev.domainenforcer;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
-import com.github.javaparser.ast.CompilationUnit;
 
 import java.io.File;
 import java.io.IOException;

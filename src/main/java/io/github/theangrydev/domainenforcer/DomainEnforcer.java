@@ -37,7 +37,7 @@ public class DomainEnforcer {
                 .collect(toList());
     }
 
-    public PackageOnlyTalksToItselfCommandBuilder checkThatPackageOnlyTalksToItselfAnd(String aPackage) {
+    public PackageOnlyTalksToItselfCommandBuilder checkThatPackageOnlyTalksToItself(String aPackage) {
         if (!packageImportsByPackage.containsKey(aPackage)) {
             throw new IllegalArgumentException(format("Package '%s' was not found", aPackage));
         }

@@ -19,20 +19,20 @@ public class DomainEnforcerTest implements WithAssertions {
 
     @Test
     public void shouldFailFastIfAttemptingToCheckThatAPackageOnlyTalksToItselfAndThatPackageIsNotInTheSources() {
-        assertThatThrownBy(() -> domainEnforcer.checkThatPackageOnlyTalksToItselfAnd("bad.package.name"))
+        assertThatThrownBy(() -> domainEnforcer.checkThatPackageOnlyTalksToItself("bad.package.name"))
                 .hasMessage("Package 'bad.package.name' was not found");
     }
 
     @Test
     public void shouldReportViolationWhenDomainPackagesTalkToPackagesOutsideTheDomain() {
-        List<String> violations = domainEnforcer.checkThatPackageOnlyTalksToItselfAnd("io.github.theangrydev.domainenforcer.examples.a.domain").apartFrom("java.util");
+        List<String> violations = domainEnforcer.checkThatPackageOnlyTalksToItself("io.github.theangrydev.domainenforcer.examples.a.domain").apartFrom("java");
 
-        assertThat(violations).containsExactly("'io.github.theangrydev.domainenforcer.examples.a.domain' is only supposed to talk to itself and 'java.util' but 'io.github.theangrydev.domainenforcer.examples.a.domain.DomainServiceThatTalksToInfrastructure' talks to 'io.github.theangrydev.domainenforcer.examples.a.infrastructure.RepositoryImplementation'!");
+        assertThat(violations).containsExactly("'io.github.theangrydev.domainenforcer.examples.a.domain' is only supposed to talk to itself and 'java' but 'io.github.theangrydev.domainenforcer.examples.a.domain.DomainServiceThatTalksToInfrastructure' talks to 'io.github.theangrydev.domainenforcer.examples.a.infrastructure.RepositoryImplementation'!");
     }
 
     @Test
     public void shouldNotReportViolationWhenDomainPackagesTalkToStandardLibrary() {
-        List<String> violations = domainEnforcer.checkThatPackageOnlyTalksToItselfAnd("io.github.theangrydev.domainenforcer.examples.b.domain").apartFrom("java.util");
+        List<String> violations = domainEnforcer.checkThatPackageOnlyTalksToItself("io.github.theangrydev.domainenforcer.examples.b.domain").apartFrom("java");
 
         assertThat(violations).describedAs("Violations").isEmpty();
     }
