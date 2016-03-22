@@ -58,8 +58,12 @@ public class DomainEnforcer {
         private List<String> apartFrom(Set<String> excludedPackages) {
             return packageImportsByPackage.get(aPackage).stream()
                     .filter(entry -> notExcluded(excludedPackages, entry))
-                    .map(anImport -> format("'%s' is only supposed to talk to itself but '%s' talks to '%s'!", aPackage, anImport.unitName(), anImport.importEntry()))
+                    .map(anImport -> format("'%s' is only supposed to talk to itself %s but '%s' talks to '%s'!", aPackage, and(excludedPackages), anImport.unitName(), anImport.importEntry()))
                     .collect(toList());
+        }
+
+        private String and(Set<String> excludedPackages) {
+            return excludedPackages.stream().collect(joining("' and '", "and '", "'"));
         }
 
         private boolean notExcluded(Set<String> excludedPackages, Import entry) {

@@ -27,7 +27,7 @@ public class DomainEnforcerTest implements WithAssertions {
     public void shouldReportViolationWhenDomainPackagesTalkToPackagesOutsideTheDomain() {
         List<String> violations = domainEnforcer.checkThatPackageOnlyTalksToItselfAnd("io.github.theangrydev.domainenforcer.examples.a.domain").apartFrom("java.util");
 
-        assertThat(violations).containsExactly("'io.github.theangrydev.domainenforcer.examples.a.domain' is only supposed to talk to itself but 'io.github.theangrydev.domainenforcer.examples.a.domain.DomainServiceThatTalksToInfrastructure' talks to 'io.github.theangrydev.domainenforcer.examples.a.infrastructure.RepositoryImplementation'!");
+        assertThat(violations).containsExactly("'io.github.theangrydev.domainenforcer.examples.a.domain' is only supposed to talk to itself and 'java.util' but 'io.github.theangrydev.domainenforcer.examples.a.domain.DomainServiceThatTalksToInfrastructure' talks to 'io.github.theangrydev.domainenforcer.examples.a.infrastructure.RepositoryImplementation'!");
     }
 
     @Test
