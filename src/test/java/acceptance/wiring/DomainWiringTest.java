@@ -13,7 +13,7 @@ public class DomainWiringTest implements WithAssertions {
 
     @Test
     public void shouldNotReportViolationWhenDomainWiringClassTalksToInfrastructure() {
-        List<String> violations = domainEnforcer.checkThatPackageOnlyTalksToItself("acceptance.standardlibraries.domain").apartFrom("java", "acceptance.wiring.domain.Wiring");
+        List<String> violations = domainEnforcer.checkThatPackageOnlyTalksToItself("acceptance.standardlibraries.domain").apartFrom("java", "acceptance.wiring.wiring");
 
         assertThat(violations).describedAs("Violations").isEmpty();
     }

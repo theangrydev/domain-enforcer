@@ -1,5 +1,7 @@
 package acceptance.wiring.domain;
 
+import acceptance.wiring.wiring.Wiring;
+
 @SuppressWarnings("unused")
 public class DomainService {
 
