@@ -4,7 +4,7 @@ import acceptance.wiring.infrastructure.RepositoryImplementation;
 
 public class Wiring {
 
-    public static Repository repository() {
+    public Repository repository() {
         return new RepositoryImplementation();
     }
 }
