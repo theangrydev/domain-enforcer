@@ -5,12 +5,12 @@ import acceptance.realworld.domain.portingauthorization.PortingAuthorizationResu
 import acceptance.realworld.domain.portingauthorization.PortingAuthorizationService;
 
 @SuppressWarnings("unused")
-public class ApplicationService {
+public class PortingAuthorizationFlow {
 
     private final PortingAuthorizationService portingAuthorizationService;
     private final PacRequestRepository pacRequestRepository;
 
-    public ApplicationService(PortingAuthorizationService portingAuthorizationService, PacRequestRepository pacRequestRepository) {
+    public PortingAuthorizationFlow(PortingAuthorizationService portingAuthorizationService, PacRequestRepository pacRequestRepository) {
         this.portingAuthorizationService = portingAuthorizationService;
         this.pacRequestRepository = pacRequestRepository;
     }

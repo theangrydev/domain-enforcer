@@ -1,6 +1,6 @@
 package acceptance.realworld.userinterface;
 
-import acceptance.realworld.application.ApplicationService;
+import acceptance.realworld.application.PortingAuthorizationFlow;
 import acceptance.realworld.userinterface.httpserver.HttpServer;
 import acceptance.realworld.wiring.Wiring;
 
@@ -13,8 +13,8 @@ public class Application {
     }
 
     public void start() {
-        ApplicationService applicationService = new ApplicationService(wiring.portingAuthorizationService(), wiring.repository());
-        ExampleHttpServlet exampleHttpServlet = new ExampleHttpServlet(applicationService);
+        PortingAuthorizationFlow portingAuthorizationFlow = new PortingAuthorizationFlow(wiring.portingAuthorizationService(), wiring.repository());
+        ExampleHttpServlet exampleHttpServlet = new ExampleHttpServlet(portingAuthorizationFlow);
 
         HttpServer httpServer = wiring.httpServerBuilder().withServlet(exampleHttpServlet).build();
         httpServer.start();
