@@ -5,7 +5,7 @@ import acceptance.realworld.infrastructure.httpclient.HttpClientFactory;
 import acceptance.realworld.userinterface.httpserver.HttpServerBuilder;
 import acceptance.realworld.domain.portingauthorization.PortingAuthorizationService;
 import acceptance.realworld.infrastructure.httpclient.HttpClientFactoryImplementation;
-import acceptance.realworld.userinterface.httpserver.HttpServerBuilderImplementation;
+import acceptance.realworld.infrastructure.httpserver.HttpServerBuilderImplementation;
 import acceptance.realworld.infrastructure.persistence.PretendPacRequestRepository;
 import acceptance.realworld.infrastructure.thirdparty.ThirdPartyClient;
 
