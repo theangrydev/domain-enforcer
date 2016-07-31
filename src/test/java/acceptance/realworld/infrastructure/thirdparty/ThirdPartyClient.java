@@ -1,15 +1,32 @@
+/*
+ * Copyright 2016 Liam Williams <liam.williams@zoho.com>.
+ *
+ * This file is part of domain-enforcer.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package acceptance.realworld.infrastructure.thirdparty;
 
-import acceptance.realworld.domain.MSISDN;
+import acceptance.realworld.domain.Widget;
 import acceptance.realworld.infrastructure.httpclient.HttpClientFactory;
 import acceptance.realworld.infrastructure.httpclient.HttpRequest;
 import acceptance.realworld.infrastructure.httpclient.HttpResponse;
-import acceptance.realworld.domain.portingauthorization.FailedPortingAuthorizationResult;
-import acceptance.realworld.domain.portingauthorization.PortingAuthorizationResult;
-import acceptance.realworld.domain.portingauthorization.PortingAuthorizationService;
-import acceptance.realworld.domain.portingauthorization.SuccessfulPortingAuthorizationResult;
+import acceptance.realworld.domain.portingauthorization.FailedFooResult;
+import acceptance.realworld.domain.portingauthorization.FooResult;
+import acceptance.realworld.domain.portingauthorization.FooService;
+import acceptance.realworld.domain.portingauthorization.SuccessfulFooResult;
 
-public class ThirdPartyClient implements PortingAuthorizationService {
+public class ThirdPartyClient implements FooService {
 
     private final HttpClientFactory httpClientFactory;
 
@@ -18,17 +35,17 @@ public class ThirdPartyClient implements PortingAuthorizationService {
     }
 
     @Override
-    public PortingAuthorizationResult requestPortingAuthorizationCode(MSISDN msisdn) {
-        HttpRequest httpRequest = new HttpRequest(msisdn.getValue());
+    public FooResult requestPortingAuthorizationCode(Widget widget) {
+        HttpRequest httpRequest = new HttpRequest(widget.getValue());
         HttpResponse httpResponse = httpClientFactory.httpClient().handle(httpRequest);
 
         ThirdPartyResponse thirdPartyResponse = new ThirdPartyResponse(httpResponse.getBody());
 
         if (thirdPartyResponse.isSuccess()) {
             String portingAuthorizationCode = thirdPartyResponse.extractPortingAuthorizationCode();
-            return new SuccessfulPortingAuthorizationResult(portingAuthorizationCode);
+            return new SuccessfulFooResult(portingAuthorizationCode);
         } else {
-            return new FailedPortingAuthorizationResult(thirdPartyResponse.extractErrorCode());
+            return new FailedFooResult(thirdPartyResponse.extractErrorCode());
         }
     }
 }

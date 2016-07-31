@@ -15,14 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package acceptance.baddomaintalkstoinfrastructure.domain;
+package acceptance.realworld.domain;
 
-import acceptance.baddomaintalkstoinfrastructure.infrastructure.RepositoryImplementation;
+public class Widget {
 
-@SuppressWarnings("unused")
-public class DomainServiceThatTalksToInfrastructure {
+    private final String value;
 
-    public void badMethod() {
-        new RepositoryImplementation().doImportantThings();
+    public Widget(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

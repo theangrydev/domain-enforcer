@@ -15,14 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package acceptance.baddomaintalkstoinfrastructure.domain;
+package acceptance.realworld.infrastructure.persistence;
 
-import acceptance.baddomaintalkstoinfrastructure.infrastructure.RepositoryImplementation;
+import acceptance.realworld.domain.Widget;
+import acceptance.realworld.application.FooRequestRepository;
+import acceptance.realworld.domain.portingauthorization.FooResult;
 
-@SuppressWarnings("unused")
-public class DomainServiceThatTalksToInfrastructure {
+public class PretendFooRequestRepository implements FooRequestRepository {
 
-    public void badMethod() {
-        new RepositoryImplementation().doImportantThings();
+    @Override
+    public void savePacRequest(Widget widget, FooResult pacRequestResult) {
+        System.out.println(String.format("Saving event about Widget=%s and response=%s", widget, pacRequestResult));
     }
 }

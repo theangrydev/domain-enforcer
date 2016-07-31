@@ -15,14 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package acceptance.baddomaintalkstoinfrastructure.domain;
+package acceptance.realworld.domain.portingauthorization;
 
-import acceptance.baddomaintalkstoinfrastructure.infrastructure.RepositoryImplementation;
+import java.util.Optional;
 
-@SuppressWarnings("unused")
-public class DomainServiceThatTalksToInfrastructure {
+public class FailedFooResult implements FooResult {
+    private final String errorCode;
 
-    public void badMethod() {
-        new RepositoryImplementation().doImportantThings();
+    public FailedFooResult(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    @Override
+    public Optional<String> portingAuthorizationCode() {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<String> errorCode() {
+        return Optional.of(errorCode);
     }
 }

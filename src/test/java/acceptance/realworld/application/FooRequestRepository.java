@@ -15,14 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package acceptance.baddomaintalkstoinfrastructure.domain;
+package acceptance.realworld.application;
 
-import acceptance.baddomaintalkstoinfrastructure.infrastructure.RepositoryImplementation;
+import acceptance.realworld.domain.Widget;
+import acceptance.realworld.domain.portingauthorization.FooResult;
 
-@SuppressWarnings("unused")
-public class DomainServiceThatTalksToInfrastructure {
-
-    public void badMethod() {
-        new RepositoryImplementation().doImportantThings();
-    }
+public interface FooRequestRepository {
+    void savePacRequest(Widget widget, FooResult fooResult);
 }

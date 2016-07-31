@@ -1,3 +1,20 @@
+/*
+ * Copyright 2016 Liam Williams <liam.williams@zoho.com>.
+ *
+ * This file is part of domain-enforcer.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.theangrydev.domainenforcer;
 
 import java.nio.file.Path;
@@ -13,6 +30,7 @@ import static java.lang.String.format;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.*;
 
+@SuppressWarnings("PMD.TooManyMethods") //TODO: refactor
 public class DomainEnforcer {
     private final Map<String, Set<Import>> packageImportsByPackage;
 
@@ -35,7 +53,7 @@ public class DomainEnforcer {
         return packageImportsByPackage.entrySet().stream()
                 .filter(entry -> !entry.getKey().startsWith(aPackage))
                 .flatMap(entry -> entry.getValue().stream().filter(packageImport -> packageImport.importLineStartsWith(aPackage)))
-                .map(anImport -> format("'%s' talks to '%s' but nobody is supposed to talk to '%s'!", anImport.unitName(), anImport.importEntry(), aPackage))
+                .map(anImport -> format("'%s' talks to '%s' but nobody is supposed to talk to '%s'!", anImport.unitName, anImport.importEntry, aPackage))
                 .collect(toList());
     }
 
@@ -61,7 +79,7 @@ public class DomainEnforcer {
             return packageImportsByPackage.entrySet().stream()
                     .filter(entry -> entry.getKey().startsWith(aPackage))
                     .flatMap(entry -> entry.getValue().stream().filter(packageImport -> notExcluded(aPackage, excludedPackages, packageImport)))
-                    .map(anImport -> format("'%s' is only supposed to talk to itself %s but '%s' talks to '%s'!", aPackage, and(excludedPackages), anImport.unitName(), anImport.importEntry()))
+                    .map(anImport -> format("'%s' is only supposed to talk to itself %s but '%s' talks to '%s'!", aPackage, and(excludedPackages), anImport.unitName, anImport.importEntry))
                     .collect(toList());
         }
 
@@ -70,7 +88,7 @@ public class DomainEnforcer {
         }
 
         private boolean notExcluded(String aPackage, Set<String> excludedPackages, Import entry) {
-            return !Stream.concat(Stream.of(aPackage), excludedPackages.stream()).anyMatch(exclude -> entry.importEntry().startsWith(exclude));
+            return !Stream.concat(Stream.of(aPackage), excludedPackages.stream()).anyMatch(entry.importEntry::startsWith);
         }
     }
 
