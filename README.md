@@ -1,7 +1,7 @@
 # domain-enforcer
 Enforce dependencies between packages in a unit test!
 
-```
+```xml
 <dependency>
     <groupId>io.github.theangrydev</groupId>
     <artifactId>domain-enforcer</artifactId>
