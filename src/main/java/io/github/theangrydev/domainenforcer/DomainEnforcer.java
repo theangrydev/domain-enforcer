@@ -53,7 +53,7 @@ public class DomainEnforcer {
         return packageImportsByPackage.entrySet().stream()
                 .filter(entry -> !entry.getKey().startsWith(aPackage))
                 .flatMap(entry -> entry.getValue().stream().filter(packageImport -> packageImport.importLineStartsWith(aPackage)))
-                .map(anImport -> format("'%s' talks to '%s' but nobody is supposed to talk to '%s'!", anImport.unitName, anImport.importEntry, aPackage))
+                .map(anImport -> format("'%s' talks to '%s'\nbut nobody is supposed to talk to '%s'!", anImport.unitName, anImport.importEntry, aPackage))
                 .collect(toList());
     }
 
@@ -79,7 +79,7 @@ public class DomainEnforcer {
             return packageImportsByPackage.entrySet().stream()
                     .filter(entry -> entry.getKey().startsWith(aPackage))
                     .flatMap(entry -> entry.getValue().stream().filter(packageImport -> notExcluded(aPackage, excludedPackages, packageImport)))
-                    .map(anImport -> format("'%s' is only supposed to talk to itself %s but '%s' talks to '%s'!", aPackage, and(excludedPackages), anImport.unitName, anImport.importEntry))
+                    .map(anImport -> format("'%s' is only supposed to talk to itself %s\nbut '%s' talks to '%s'!", aPackage, and(excludedPackages), anImport.unitName, anImport.importEntry))
                     .collect(toList());
         }
 
