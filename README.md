@@ -1,4 +1,5 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.theangrydev/domain-enforcer/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/io.github.theangrydev/domain-enforcer)
+[![Build Status](https://travis-ci.org/theangrydev/domain-enforcer.svg?branch=master)](https://travis-ci.org/theangrydev/domain-enforcer)
 
 # domain-enforcer
 Enforce dependencies between packages in a unit test!
