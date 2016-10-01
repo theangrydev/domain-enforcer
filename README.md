@@ -7,6 +7,13 @@ Enforce dependencies between packages in a unit test!
 <dependency>
     <groupId>io.github.theangrydev</groupId>
     <artifactId>domain-enforcer</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
+
+## Releases
+### 1.1.0
+* Made it easier to see violations by putting them on a new line (closes [#1](https://github.com/theangrydev/domain-enforcer/issues/1))
+
+### 1.0.0
+* Initial stab at business-flows
