@@ -17,6 +17,7 @@
  */
 package io.github.theangrydev.domainenforcer;
 
+import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import org.assertj.core.api.WithAssertions;
@@ -27,6 +28,22 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class JavaFileParserTest implements WithAssertions {
+
+    @Test
+    public void notFoundThrowsRuntimeExceptionWithIOExceptionCause() {
+        JavaFileParser javaFileParser = new JavaFileParser();
+
+        assertThatThrownBy(() -> javaFileParser.parseJavaFiles(Paths.get("/bad")))
+                .hasCauseInstanceOf(IOException.class);
+    }
+
+    @Test
+    public void unparsableThrowsRuntimeExceptionWithParseExceptionCause() {
+        JavaFileParser javaFileParser = new JavaFileParser();
+
+        assertThatThrownBy(() -> javaFileParser.parseJavaFiles(Paths.get("./src/test/resources")))
+                .hasCauseInstanceOf(ParseException.class);
+    }
 
     @Test
     public void shouldParseFilesInGivenDirectory() throws IOException {
