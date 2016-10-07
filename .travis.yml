@@ -10,3 +10,5 @@ cache:
     - $HOME/.m2
 install: mvn dependency:resolve dependency:resolve-plugins
 script: mvn verify
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
