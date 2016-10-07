@@ -290,16 +290,12 @@
                 </executions>
             </plugin>
 
-            <!-- License headers -->
+            <!-- Insert license headers -->
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
-                <version>2.11</version>
+                <version>3.0</version>
                 <configuration>
-                    <header>${project.basedir}/license/license-header.txt</header>
-                    <mapping>
-                        <java>SLASHSTAR_STYLE</java>
-                    </mapping>
                     <properties>
                         <copyright.owner>Liam Williams</copyright.owner>
                         <copyright.owner.email>liam.williams@zoho.com</copyright.owner.email>
@@ -308,8 +304,10 @@
                     <excludes>
                         <exclude>README.md</exclude>
                         <exclude>LICENSE.txt</exclude>
+                        <exclude>license-header/**</exclude>
                         <exclude>src/test/resources/**</exclude>
                         <exclude>src/main/resources/**</exclude>
+                        <exclude>.*yml</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -319,6 +317,25 @@
                         <goals>
                             <goal>format</goal>
                         </goals>
+                        <configuration>
+                            <header>${project.basedir}/license-header/license-header.txt</header>
+                            <mapping>
+                                <java>SLASHSTAR_STYLE</java>
+                            </mapping>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-notice-header</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                        <configuration>
+                            <header>${project.basedir}/license-header/notice-header.txt</header>
+                            <includes>
+                                <include>NOTICE.txt</include>
+                            </includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
