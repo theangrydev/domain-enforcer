@@ -19,7 +19,7 @@ package io.github.theangrydev.domainenforcer;
 
 import com.github.javaparser.ast.ImportDeclaration;
 
-public final class Import {
+final class Import {
     public final String importEntry;
     public final String unitName;
 

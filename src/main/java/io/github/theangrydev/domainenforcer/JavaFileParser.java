@@ -29,7 +29,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @SuppressWarnings("PMD.AvoidThrowingRawExceptionTypes") // failing fast is by design
-public class JavaFileParser {
+class JavaFileParser {
 
     public List<FileCompilationUnit> parseJavaFiles(Path path) {
         try {

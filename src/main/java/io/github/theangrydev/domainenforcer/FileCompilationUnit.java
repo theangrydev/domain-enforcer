@@ -21,7 +21,7 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import java.io.File;
 
-public class FileCompilationUnit {
+class FileCompilationUnit {
 
     private final File file;
     private final CompilationUnit compilationUnit;

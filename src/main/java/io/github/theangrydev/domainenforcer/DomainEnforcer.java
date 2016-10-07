@@ -30,6 +30,9 @@ import static java.lang.String.format;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.*;
 
+/**
+ * Use this class to enforce rules between packages.
+ */
 @SuppressWarnings("PMD.TooManyMethods") //TODO: refactor
 public class DomainEnforcer {
     private final Map<String, Set<Import>> packageImportsByPackage;
@@ -38,6 +41,12 @@ public class DomainEnforcer {
         this.packageImportsByPackage = packageImportsByPackage;
     }
 
+    /**
+     * Construct a {@link DomainEnforcer} that will enforce files in the given directory.
+     *
+     * @param sourceDirectory The directory to find your Java source files in
+     * @return The {@link DomainEnforcer}
+     */
     public static DomainEnforcer enforceSources(Path sourceDirectory) {
         JavaFileParser javaFileParser = new JavaFileParser();
         List<FileCompilationUnit> compilationUnits = javaFileParser.parseJavaFiles(sourceDirectory);
@@ -49,6 +58,12 @@ public class DomainEnforcer {
         return new DomainEnforcer(packageImports);
     }
 
+    /**
+     * Check that no other packages talk to the given package.
+     *
+     * @param aPackage The package to enforce
+     * @return A list of all the violations in a human readable format
+     */
     public List<String> checkThatNobodyTalksTo(String aPackage) {
         return packageImportsByPackage.entrySet().stream()
                 .filter(entry -> !entry.getKey().startsWith(aPackage))
@@ -57,6 +72,12 @@ public class DomainEnforcer {
                 .collect(toList());
     }
 
+    /**
+     * Start to build up a command that will enforce that only certain packages are allowed to talk to the given package.
+     *
+     * @param aPackage The package to enforce
+     * @return The fluent command builder
+     */
     public PackageOnlyTalksToItselfCommandBuilder checkThatPackageOnlyTalksToItself(String aPackage) {
         if (!packageImportsByPackage.keySet().stream().anyMatch(entry -> entry.startsWith(aPackage))) {
             throw new IllegalArgumentException(format("Package '%s' was not found", aPackage));
@@ -64,6 +85,9 @@ public class DomainEnforcer {
         return new PackageOnlyTalksToItselfCommandBuilder(aPackage);
     }
 
+    /**
+     * Gathers all the violations about when packages are not supposed to talk to the package that is being enforced.
+     */
     public class PackageOnlyTalksToItselfCommandBuilder {
         private final String aPackage;
 
@@ -71,6 +95,12 @@ public class DomainEnforcer {
             this.aPackage = aPackage;
         }
 
+        /**
+         * Enforces that only the given packages are allowed to talk to the package being enforced.
+         *
+         * @param excludedPackages The packages that are allowed to talk to the package being enforced
+         * @return A list of all the violations in a human readable format
+         */
         public List<String> apartFrom(String... excludedPackages) {
             return apartFrom(stream(excludedPackages).collect(toSet()));
         }
