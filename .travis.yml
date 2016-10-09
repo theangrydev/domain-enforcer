@@ -6,9 +6,6 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
-env:
-  global:
-    - secure: IHjvgpCa9oxtYXQBmaOY5Zrjy3sDngoKDS2T7kb6mS6U6Pb2diV2vgg6atccH69JMx3R9mXoChg8GXri3kzWygqo0dwXOO0N0ssD/64vhmYzqZWfKOuIiHAGvAsUx7QNqpiREzV390BF9iYlzgDcU5GOcZ/qOXGoXfECKa5Jm9RfSbeAb4/6joE1TUBsJmCzawZWkuY4XLNFg8r8YVgFyAwOiCnPXZI9HXGbzqfWKlUa7tK1651eMelGfY8PVGBgQOFbdCtQCfd/rjlpI2o4nLijsE8M7vzHqBiUQqtcmq8Jlq9w1F8NwXndJlsHV6dT3RkYvE/u3oIV6GiQdIzWMDtm5V9Oa1KY5T3B838T6FAYWjXHnUCPa9Cz7pkaDMyOCNWKXkulGfG7eh6wOvM7W4GM1Y2pud/18mOg82ORe/wtLBHeauddhwBBgHVIWci6NEpqF27x+NntWlgqQ4yvLyB0cb+OVMaDn+AJlzqP3zanSQot1585JGwhnt3WrnRfGMa3J7FWCoVrIHdT42B+zbKFpF2Lf71oriwSWoFX9oq3t6Usqf40Loxua/W9/sXxDXSnACE1KaK7V9JbyKEa21AL1EOYHqS5SOFQ0WMMeSSOD5LJZzHL47eQhXsV3PxuVzLVzsJSO9+qzVljq/HWL91sj4QpXYxACHF/EmqQOlU=
 cache:
   directories:
     - $HOME/.m2
