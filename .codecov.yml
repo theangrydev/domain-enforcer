@@ -25,3 +25,10 @@ comment:
   layout: "header, diff"
   behavior: default
   require_changes: no
+
+coverage:
+  notify:
+    gitter:
+      default:
+        url: "https://webhooks.gitter.im/e/1559155e8b06b738c52b"
+        threshold: 1%

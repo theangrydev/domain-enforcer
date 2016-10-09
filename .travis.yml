@@ -14,3 +14,10 @@ script: mvn verify
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - sonar-scanner -Dsonar.login=$SONAR_TOKEN
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/a7baa38f9dfc511093b7
+    on_success: change
+    on_failure: always
+    on_start: never
