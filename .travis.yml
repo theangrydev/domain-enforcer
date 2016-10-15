@@ -13,7 +13,7 @@ install: mvn dependency:resolve dependency:resolve-plugins
 script: mvn verify
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
+  - mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN
 notifications:
   webhooks:
     urls:
