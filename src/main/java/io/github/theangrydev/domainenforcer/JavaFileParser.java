@@ -28,14 +28,13 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@SuppressWarnings("PMD.AvoidThrowingRawExceptionTypes") // failing fast is by design
 class JavaFileParser {
 
     public List<FileCompilationUnit> parseJavaFiles(Path path) {
         try {
             return Files.walk(path).filter(Files::isRegularFile).map(Path::toFile).map(this::parseJavaFile).collect(toList());
         } catch (IOException checkedException) {
-            throw new RuntimeException(checkedException);
+            throw new IllegalStateException(checkedException);
         }
     }
 
@@ -43,7 +42,7 @@ class JavaFileParser {
         try {
             return new FileCompilationUnit(javaFile, JavaParser.parse(javaFile));
         } catch (ParseException | IOException checkedException) {
-            throw new RuntimeException(checkedException);
+            throw new IllegalStateException(checkedException);
         }
     }
 }
