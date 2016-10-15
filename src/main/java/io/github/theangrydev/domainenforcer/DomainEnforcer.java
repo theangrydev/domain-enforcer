@@ -18,14 +18,11 @@
 package io.github.theangrydev.domainenforcer;
 
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static io.github.theangrydev.domainenforcer.Import.anImport;
 import static java.lang.String.format;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.*;
@@ -33,7 +30,6 @@ import static java.util.stream.Collectors.*;
 /**
  * Use this class to enforce rules between packages.
  */
-@SuppressWarnings("PMD.TooManyMethods") //TODO: refactor
 public class DomainEnforcer {
     private final Map<String, Set<Import>> packageImportsByPackage;
 
@@ -48,14 +44,7 @@ public class DomainEnforcer {
      * @return The {@link DomainEnforcer}
      */
     public static DomainEnforcer enforceSources(Path sourceDirectory) {
-        JavaFileParser javaFileParser = new JavaFileParser();
-        List<FileCompilationUnit> compilationUnits = javaFileParser.parseJavaFiles(sourceDirectory);
-
-        Map<String, List<FileCompilationUnit>> compilationUnitsByPackage = compilationUnits.stream().collect(groupingBy(DomainEnforcer::packageName));
-
-        Map<String, Set<Import>> packageImports = compilationUnitsByPackage.entrySet().stream().collect(toMap(Entry::getKey, entry -> packagesImported(entry.getValue())));
-
-        return new DomainEnforcer(packageImports);
+        return DomainEnforcerFactory.enforceSources(sourceDirectory);
     }
 
     /**
@@ -78,20 +67,20 @@ public class DomainEnforcer {
      * @param aPackage The package to enforce
      * @return The fluent command builder
      */
-    public PackageOnlyTalksToItselfCommandBuilder checkThatPackageOnlyTalksToItself(String aPackage) {
+    public PackageOnlyTalksToItselfAssertion checkThatPackageOnlyTalksToItself(String aPackage) {
         if (!packageImportsByPackage.keySet().stream().anyMatch(entry -> entry.startsWith(aPackage))) {
             throw new IllegalArgumentException(format("Package '%s' was not found", aPackage));
         }
-        return new PackageOnlyTalksToItselfCommandBuilder(aPackage);
+        return new PackageOnlyTalksToItselfAssertion(aPackage);
     }
 
     /**
      * Gathers all the violations about when packages are not supposed to talk to the package that is being enforced.
      */
-    public class PackageOnlyTalksToItselfCommandBuilder {
+    public class PackageOnlyTalksToItselfAssertion {
         private final String aPackage;
 
-        public PackageOnlyTalksToItselfCommandBuilder(String aPackage) {
+        public PackageOnlyTalksToItselfAssertion(String aPackage) {
             this.aPackage = aPackage;
         }
 
@@ -120,24 +109,5 @@ public class DomainEnforcer {
         private boolean notExcluded(String aPackage, Set<String> excludedPackages, Import entry) {
             return !Stream.concat(Stream.of(aPackage), excludedPackages.stream()).anyMatch(entry.importEntry::startsWith);
         }
-    }
-
-    private static Set<Import> packagesImported(List<FileCompilationUnit> compilationUnits) {
-        return compilationUnits.stream().flatMap(DomainEnforcer::importedPackages).collect(toSet());
-    }
-
-    private static Stream<Import> importedPackages(FileCompilationUnit compilationUnit) {
-        return adaptNull(compilationUnit.getCompilationUnit().getImports()).stream().map(importDeclaration -> anImport(compilationUnit, importDeclaration));
-    }
-
-    private static <T> List<T> adaptNull(List<T> listThatMightBeNull) {
-        if (listThatMightBeNull == null) {
-            return Collections.emptyList();
-        }
-        return listThatMightBeNull;
-    }
-
-    private static String packageName(FileCompilationUnit unit) {
-        return unit.getCompilationUnit().getPackage().getName().toString();
     }
 }
