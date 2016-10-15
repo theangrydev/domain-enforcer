@@ -44,7 +44,7 @@ public class DomainEnforcer {
      * @return The {@link DomainEnforcer}
      */
     public static DomainEnforcer enforceSources(Path sourceDirectory) {
-        return DomainEnforcerFactory.enforceSources(sourceDirectory);
+        return new DomainEnforcerFactory().enforceSources(sourceDirectory);
     }
 
     /**

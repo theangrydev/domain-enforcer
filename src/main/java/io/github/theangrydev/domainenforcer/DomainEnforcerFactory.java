@@ -31,36 +31,36 @@ import static java.util.stream.Collectors.toSet;
 
 final class DomainEnforcerFactory {
 
-    public static DomainEnforcer enforceSources(Path sourceDirectory) {
+    public DomainEnforcer enforceSources(Path sourceDirectory) {
         JavaFileParser javaFileParser = new JavaFileParser();
         List<FileCompilationUnit> compilationUnits = javaFileParser.parseJavaFiles(sourceDirectory);
         return new DomainEnforcer(packageImports(compilationUnitsByPackage(compilationUnits)));
     }
 
-    private static Map<String, Set<Import>> packageImports(Map<String, List<FileCompilationUnit>> compilationUnitsByPackage) {
+    private Map<String, Set<Import>> packageImports(Map<String, List<FileCompilationUnit>> compilationUnitsByPackage) {
         return compilationUnitsByPackage.entrySet().stream().collect(toMap(Map.Entry::getKey, entry -> packagesImported(entry.getValue())));
     }
 
-    private static Map<String, List<FileCompilationUnit>> compilationUnitsByPackage(List<FileCompilationUnit> compilationUnits) {
-        return compilationUnits.stream().collect(groupingBy(DomainEnforcerFactory::packageName));
+    private Map<String, List<FileCompilationUnit>> compilationUnitsByPackage(List<FileCompilationUnit> compilationUnits) {
+        return compilationUnits.stream().collect(groupingBy(this::packageName));
     }
 
-    private static Set<Import> packagesImported(List<FileCompilationUnit> compilationUnits) {
-        return compilationUnits.stream().flatMap(DomainEnforcerFactory::packagesImported).collect(toSet());
+    private Set<Import> packagesImported(List<FileCompilationUnit> compilationUnits) {
+        return compilationUnits.stream().flatMap(this::packagesImported).collect(toSet());
     }
 
-    private static Stream<Import> packagesImported(FileCompilationUnit compilationUnit) {
+    private Stream<Import> packagesImported(FileCompilationUnit compilationUnit) {
         return adaptNull(compilationUnit.getCompilationUnit().getImports()).stream().map(importDeclaration -> anImport(compilationUnit, importDeclaration));
     }
 
-    private static <T> List<T> adaptNull(List<T> listThatMightBeNull) {
+    private <T> List<T> adaptNull(List<T> listThatMightBeNull) {
         if (listThatMightBeNull == null) {
             return Collections.emptyList();
         }
         return listThatMightBeNull;
     }
 
-    private static String packageName(FileCompilationUnit unit) {
+    private String packageName(FileCompilationUnit unit) {
         return unit.getCompilationUnit().getPackage().getName().toString();
     }
 }
