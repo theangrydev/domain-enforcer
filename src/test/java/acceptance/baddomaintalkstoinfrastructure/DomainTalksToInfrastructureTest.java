@@ -19,6 +19,7 @@ package acceptance.baddomaintalkstoinfrastructure;
 
 import io.github.theangrydev.domainenforcer.DomainEnforcer;
 import org.assertj.core.api.WithAssertions;
+import org.assertj.core.util.Compatibility;
 import org.junit.Test;
 
 import java.nio.file.Paths;
@@ -31,7 +32,7 @@ public class DomainTalksToInfrastructureTest implements WithAssertions {
     public void shouldReportViolationWhenPackagesOutsideInfrastructureTalkToPackagesInsideInfrastructure() {
         List<String> violations = domainEnforcer.checkThatNobodyTalksTo("acceptance.baddomaintalkstoinfrastructure.infrastructure");
 
-        assertThat(violations).containsExactly("'acceptance.baddomaintalkstoinfrastructure.domain.DomainServiceThatTalksToInfrastructure' talks to 'acceptance.baddomaintalkstoinfrastructure.infrastructure.RepositoryImplementation'\n" +
+        assertThat(violations).containsExactly("'acceptance.baddomaintalkstoinfrastructure.domain.DomainServiceThatTalksToInfrastructure' talks to 'acceptance.baddomaintalkstoinfrastructure.infrastructure.RepositoryImplementation'" + System.lineSeparator() +
                 "but nobody is supposed to talk to 'acceptance.baddomaintalkstoinfrastructure.infrastructure'!");
     }
 
@@ -39,7 +40,7 @@ public class DomainTalksToInfrastructureTest implements WithAssertions {
     public void shouldReportViolationWhenDomainPackagesTalkToPackagesOutsideTheDomain() {
         List<String> violations = domainEnforcer.checkThatPackageOnlyTalksToItself("acceptance.baddomaintalkstoinfrastructure.domain").apartFrom("java");
 
-        assertThat(violations).containsExactly("'acceptance.baddomaintalkstoinfrastructure.domain' is only supposed to talk to itself and 'java'\n" +
+        assertThat(violations).containsExactly("'acceptance.baddomaintalkstoinfrastructure.domain' is only supposed to talk to itself and 'java'" + System.lineSeparator() +
                 "but 'acceptance.baddomaintalkstoinfrastructure.domain.DomainServiceThatTalksToInfrastructure' talks to 'acceptance.baddomaintalkstoinfrastructure.infrastructure.RepositoryImplementation'!");
     }
 }
