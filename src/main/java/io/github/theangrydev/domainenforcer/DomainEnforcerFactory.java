@@ -34,19 +34,22 @@ final class DomainEnforcerFactory {
     public static DomainEnforcer enforceSources(Path sourceDirectory) {
         JavaFileParser javaFileParser = new JavaFileParser();
         List<FileCompilationUnit> compilationUnits = javaFileParser.parseJavaFiles(sourceDirectory);
+        return new DomainEnforcer(packageImports(compilationUnitsByPackage(compilationUnits)));
+    }
 
-        Map<String, List<FileCompilationUnit>> compilationUnitsByPackage = compilationUnits.stream().collect(groupingBy(DomainEnforcerFactory::packageName));
+    private static Map<String, Set<Import>> packageImports(Map<String, List<FileCompilationUnit>> compilationUnitsByPackage) {
+        return compilationUnitsByPackage.entrySet().stream().collect(toMap(Map.Entry::getKey, entry -> packagesImported(entry.getValue())));
+    }
 
-        Map<String, Set<Import>> packageImports = compilationUnitsByPackage.entrySet().stream().collect(toMap(Map.Entry::getKey, entry -> packagesImported(entry.getValue())));
-
-        return new DomainEnforcer(packageImports);
+    private static Map<String, List<FileCompilationUnit>> compilationUnitsByPackage(List<FileCompilationUnit> compilationUnits) {
+        return compilationUnits.stream().collect(groupingBy(DomainEnforcerFactory::packageName));
     }
 
     private static Set<Import> packagesImported(List<FileCompilationUnit> compilationUnits) {
-        return compilationUnits.stream().flatMap(DomainEnforcerFactory::importedPackages).collect(toSet());
+        return compilationUnits.stream().flatMap(DomainEnforcerFactory::packagesImported).collect(toSet());
     }
 
-    private static Stream<Import> importedPackages(FileCompilationUnit compilationUnit) {
+    private static Stream<Import> packagesImported(FileCompilationUnit compilationUnit) {
         return adaptNull(compilationUnit.getCompilationUnit().getImports()).stream().map(importDeclaration -> anImport(compilationUnit, importDeclaration));
     }
 
