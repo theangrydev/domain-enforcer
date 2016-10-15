@@ -39,7 +39,9 @@
         <exclude name="LoosePackageCoupling"/><!-- This rule would be good but you can only configure class excludes not package excludes -->
         <exclude name="LawOfDemeter"/><!-- The Law of Demeter is a good thing to keep in mind, but this rule triggers too many false positives with e.g. fluent interfaces -->
     </rule>
-    <rule ref="rulesets/java/design.xml"/>
+    <rule ref="rulesets/java/design.xml">
+        <exclude name="UseUtilityClass"/><!-- This doesn't hurt anybody, just an annoying warning -->
+    </rule>
     <rule ref="rulesets/java/empty.xml"/>
     <rule ref="rulesets/java/finalizers.xml"/>
     <rule ref="rulesets/java/imports.xml"/>

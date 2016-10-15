@@ -31,10 +31,6 @@ import static java.util.stream.Collectors.toSet;
 
 final class DomainEnforcerFactory {
 
-    private DomainEnforcerFactory() {
-        // there should never be an instance
-    }
-
     public static DomainEnforcer enforceSources(Path sourceDirectory) {
         JavaFileParser javaFileParser = new JavaFileParser();
         List<FileCompilationUnit> compilationUnits = javaFileParser.parseJavaFiles(sourceDirectory);
