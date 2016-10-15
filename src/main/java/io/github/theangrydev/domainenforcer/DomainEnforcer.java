@@ -56,9 +56,13 @@ public class DomainEnforcer {
     public List<String> checkThatNobodyTalksTo(String aPackage) {
         return packageImportsByPackage.entrySet().stream()
                 .filter(entry -> !entry.getKey().startsWith(aPackage))
-                .flatMap(entry -> entry.getValue().stream().filter(packageImport -> packageImport.importLineStartsWith(aPackage)))
+                .flatMap(entry -> importLineStartsWith(entry.getValue(), aPackage))
                 .map(anImport -> format("'%s' talks to '%s'\nbut nobody is supposed to talk to '%s'!", anImport.unitName, anImport.importEntry, aPackage))
                 .collect(toList());
+    }
+
+    private Stream<Import> importLineStartsWith(Set<Import> imports, String aPackage) {
+        return imports.stream().filter(packageImport -> packageImport.importLineStartsWith(aPackage));
     }
 
     /**
@@ -97,9 +101,13 @@ public class DomainEnforcer {
         private List<String> apartFrom(Set<String> excludedPackages) {
             return packageImportsByPackage.entrySet().stream()
                     .filter(entry -> entry.getKey().startsWith(aPackage))
-                    .flatMap(entry -> entry.getValue().stream().filter(packageImport -> notExcluded(aPackage, excludedPackages, packageImport)))
+                    .flatMap(entry -> notExcluded(entry.getValue(), excludedPackages))
                     .map(anImport -> format("'%s' is only supposed to talk to itself %s\nbut '%s' talks to '%s'!", aPackage, and(excludedPackages), anImport.unitName, anImport.importEntry))
                     .collect(toList());
+        }
+
+        private Stream<Import> notExcluded(Set<Import> imports, Set<String> excludedPackages) {
+            return imports.stream().filter(packageImport -> notExcluded(aPackage, excludedPackages, packageImport));
         }
 
         private String and(Set<String> excludedPackages) {
