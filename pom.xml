@@ -313,6 +313,7 @@
                         </goals>
                         <configuration>
                             <excludes>
+                                <exclude>NOTICE.txt</exclude>
                                 <exclude>README.md</exclude>
                                 <exclude>LICENSE.txt</exclude>
                                 <exclude>license-header/**</exclude>
