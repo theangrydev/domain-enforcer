@@ -13,7 +13,7 @@ install: mvn dependency:resolve dependency:resolve-plugins
 script: mvn verify
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN
+  - if [ ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} == "master" ]; then mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN; fi
 notifications:
   webhooks:
     urls:
