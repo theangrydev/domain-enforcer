@@ -27,4 +27,4 @@ Enforce dependencies between packages in a unit test!
 * Made it easier to see violations by putting them on a new line (closes [#1](https://github.com/theangrydev/domain-enforcer/issues/1))
 
 ### 1.0.0
-* Initial stab at business-flows
+* Initial stab at domain-enforcer
