@@ -1,4 +1,4 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.theangrydev/domain-enforcer/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/io.github.theangrydev/domain-enforcer)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.theangrydev/domain-enforcer.svg)](https://mvnrepository.com/artifact/io.github.theangrydev/domain-enforcer)
 [![Javadoc](http://javadoc-badge.appspot.com/io.github.theangrydev/domain-enforcer.svg?label=javadoc)](http://javadoc-badge.appspot.com/io.github.theangrydev/domain-enforcer)
 [![Gitter](https://badges.gitter.im/domain-enforcer/Lobby.svg)](https://gitter.im/domain-enforcer/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
