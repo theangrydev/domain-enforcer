@@ -11,10 +11,11 @@ addons:
     organization: default
     token:
       secure: $SONAR_TOKEN
-script: mvn install -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -B -V
+install: mvn dependency:resolve dependency:resolve-plugins
+script: mvn verify
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - if [ ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} == "master" ]; then mvn sonar:sonar -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -B; fi
+  - if [ ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} == "master" ]; then mvn sonar:sonar; fi
 notifications:
   webhooks:
     urls:
