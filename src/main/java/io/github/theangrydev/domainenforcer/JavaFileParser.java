@@ -31,8 +31,8 @@ import static java.util.stream.Collectors.toList;
 class JavaFileParser {
 
     public List<FileCompilationUnit> parseJavaFiles(Path path) {
-        try {
-            return Files.walk(path).filter(Files::isRegularFile).map(Path::toFile).map(this::parseJavaFile).collect(toList());
+        try (Stream<Path> files = Files.walk(path)) {
+            return files.filter(Files::isRegularFile).map(Path::toFile).map(this::parseJavaFile).collect(toList());
         } catch (IOException checkedException) {
             throw new IllegalStateException(checkedException);
         }
